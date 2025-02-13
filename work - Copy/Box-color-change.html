@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 350px;
+            border: 1px solid black;
+            margin: 20px 0;
+            padding: 20px;
+            height: 250px;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        #red { background-color: red; }
+        #green { background-color: green; }
+        #yellow { background-color: yellow; }
+        #pink { background-color: pink; }
+        #black { background-color: rgb(3, 3, 3); color: white; }
+        #white { background-color: rgb(248, 247, 247); border: 1px solid black; }
+        #italic, #bold, #underline, #lighter {
+            background-color: #f0f0f0;
+            width: auto;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                font-size: 24px;
+                height: auto;
+            }
+
+            button {
+                width: 50px;
+                height: 50px;
+                font-size: 12px;
+            }
+
+            #italic, #bold, #underline, #lighter {
+                font-size: 12px;
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        Change box color
+    </div>
+
+    <div class="button">
+        <button id="red" onclick="red()"></button>
+        <button id="green" onclick="green()"></button>
+        <button id="yellow" onclick="yellow()"></button>
+        <button id="pink" onclick="pink()"></button>
+        <button id="black" onclick="black()"></button>
+        <button id="white" onclick="white()"></button>
+    </div>
+
+    <div class="button">
+        <button id="italic" onclick="italic()">ITALIC</button>
+        <button id="bold" onclick="bold()">BOLD</button>
+        <button id="underline" onclick="underline()">UNDERLINE</button>
+        <button id="lighter" onclick="lighter()">COLOR</button>
+    </div>
+
+    <script>
+        function red() {
+            document.getElementsByClassName("container")[0].style.backgroundColor = "red";
+        }
+        function green() {
+            document.getElementsByClassName("container")[0].style.backgroundColor = "green";
+        }
+        function yellow() {
+            document.getElementsByClassName("container")[0].style.backgroundColor = "yellow";
+        }
+        function pink() {
+            document.getElementsByClassName("container")[0].style.backgroundColor = "pink";
+        }
+        function black() {
+            document.getElementsByClassName("container")[0].style.backgroundColor = "black";
+        }
+        function white() {
+            document.getElementsByClassName("container")[0].style.backgroundColor = "white";
+        }
+        function italic() {
+            document.getElementsByClassName("container")[0].style.fontStyle = "italic";
+        }
+        function bold() {
+            document.getElementsByClassName("container")[0].style.fontWeight = "bold";
+        }
+        function underline() {
+            document.getElementsByClassName("container")[0].style.textDecoration = "underline";
+        }
+        function lighter() {
+            document.getElementsByClassName("container")[0].style.color = "chartreuse";
+        }
+    </script>
+</body>
+</html>

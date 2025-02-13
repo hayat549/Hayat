@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+          margin: 0;
+         padding: 0;
+         height: 100vh;
+         background: radial-gradient(circle at center, #020024, #090979, #00d4ff);
+         overflow: hidden;
+         cursor: none;
+        }
+        body::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.5;
+            animation: starryMove 30s linear infinite;
+        }
+        @keyframes starryMove {
+            0%{transform: translate(0, 0);}
+            100%{transform: translate(-50%, -50%);}
+        }
+        .cursor{
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            pointer-events: none;
+            z-index: 1000;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(225, 225, 225, 0.8);
+        }
+
+        .trail{
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            animation: fadeOut 1s linear forwards;
+        }
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="cursor" id="cursor"></div>
+    <script>
+
+        const cursor = document.getElementById("cursor");
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.let = `${e.pageX}px`;
+            cursor.style.top = `${e.pageY}px`;
+
+            const trail = document.createElement("div");
+            trail.className = "trail";
+            trail.style.left = `${e.pageX}px`
+            trail.style.top = `${e.pageY}px`
+
+            const hue = Math.random() * 360;
+            trail.style.background = `hsl(${hue}, 80%, 60%)`;
+
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 1000);
+        });
+    </script>
+</body>
+</html>

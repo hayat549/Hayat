@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            background-color: #282c34;
+            color: white;
+            margin-top: 50px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            max-width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            border: 5px solid #61dafb;
+            border-radius: 50%;
+            background-color: #1c1f26;
+            box-shadow: 0px 0px 15px rgba(97, 218, 251, 0.5);
+        }
+
+        .time {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 7px;
+            background-color: #12d1df;
+            color: #000;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #4fa3d1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                height: 250px;
+            }
+
+            .time {
+                font-size: 1.5rem;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .time {
+                font-size: 1.2rem;
+            }
+
+            button {
+                padding: 7px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="time" id="display">00:00:00:00</div>
+    </div>
+
+    <div class="buttons">
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        let timer;
+        let milliseconds = 0, seconds = 0, minutes = 0, hours = 0;
+        let running = false;
+
+        function updateDisplay() {
+            document.getElementById("display").innerText = 
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(3, '0')}`;
+        }
+
+        function startTimer() {
+            if (!running) {
+                running = true;
+                timer = setInterval(() => {
+                    milliseconds += 10;
+                    if(milliseconds === 1000) {
+                        milliseconds = 0;
+                        seconds++;
+                    }
+                    if (seconds === 60) {
+                        seconds = 0;
+                        minutes++;
+                    }
+
+                    if (minutes === 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                    updateDisplay();
+                }, 10);
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            running = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            running = false;
+            milliseconds = 0;
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            updateDisplay();
+        }
+    </script>
+    
+</body>
+</html>

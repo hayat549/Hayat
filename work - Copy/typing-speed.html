@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: antiquewhite;
+        }
+        #textDisplay{
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: #fff;
+            padding:10px ;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .hightlight{
+            background-color: lightblue;
+        }
+
+        #inputArea{
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+            border: 2px solid #333;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        #esult{
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+
+        button{
+            margin: 10px;
+            padding: 10px  20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #startBtn{
+            background-color: #28a745;
+            color: white;
+        }
+        #resetBtn{
+            background-color: #dc3545;
+            color: white;
+        }
+        #timer{
+            font-size: 24px;
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+       <h1>TYPING SPEED TEST </h1>
+       <p id="timer">Time 40 seconds</p>
+       <p id="textDisplay"></p>
+       <textarea  id="inputArea" placeholder="start typing here..."></textarea>
+       <button id="startBtn" onclick="startTest()">Start</button>
+       <button id="resetBtn" onclick="resetTest()">Reset</button>
+       <p id="result"></p>
+
+       <script>
+        let startTime, timerInterval;
+        const paragraphs = [
+            "The quick brown fox jumps over the lazy dog",
+            "a group of sentences or a single sentence that forms a unit",
+            " a paragraph can be just one sentence long."
+        ];
+
+
+        function startTest() {
+            let randomIndex = Math.floor(Math.random() * paragraphs.length);
+            let textDisplay = document.getElementById("textDisplay");
+            textDisplay.innerHTML = paragraphs[randomIndex]
+            .split("")
+            .map(letter => `<span>${letter}</span>`)
+            .join("");
+            document.getElementById("inputArea").value = "";
+            document.getElementById("result").innerText = "";
+            startTime = new Date().getTime();
+            startTimer();
+        }
+        function startTimer() {
+            let timeLeft = 40;
+            document.getElementById("timer").innerText = timeLeft;
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById("timer").innerText = timeLeft;
+                if (timeLeft <= 0) {
+                 clearInterval(timerInterval);
+                 document.getElementById("inputArea").disabled = true;
+                 document.getElementById("result").innerText = "Time's up!";
+                }
+            }, 1000);
+        }
+
+        document.getElementById("inputArea").addEventListener("input", function() {
+            let textSpans = document.querySelectorAll("#textDisplay span");
+            let inputText = this.value.split("");
+
+            textSpans.forEach((span, index) => {
+                if(inputText[index] === span.innerText) {
+                    span.classList.add("hightlight");
+                }else {
+                    span.classList.remove("hightlight");
+                }
+            });
+        });
+        function resetTest() {
+            document.getElementById("inputArea").value = "";
+            document.getElementById("result").innerText = "";
+            document.getElementById("textDisplay").innerHTML = "";
+            document.getElementById("timer").innerText = "30";
+        }
+       </script>
+</body>
+</html>

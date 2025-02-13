@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: 'Courier New', Courier, monospace;
+            background-color: rgb(245, 243, 240);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container{
+            background: #fff;
+            padding: 20px 30px ;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(red, green, blue, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        h1{
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007Bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <h1>Temperature converter</h1>
+        <input id="data" type="text" placeholder="Enter celsius value">
+        <button onclick="convert()">convert</button>
+        <h2 id="result"></h2>
+    </div>
+    <script>
+        function convert() {
+            let con = document.getElementById("data").value;
+            let cel = (con * 1.8) + 32;
+            document.getElementById("result").innerText = cel + "Fahrenheit";
+        } 
+    </script>
+</body>
+</html>

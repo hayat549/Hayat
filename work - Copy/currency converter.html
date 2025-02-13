@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        body{
+          font-family: 'Times New Roman', Times, serif;
+          background-color:rgb(205, 231, 232) ;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          margin: 0;  
+        }
+        .converter-container {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid red;
+            background-color: azure;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #f5220f;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            font-size: 1rem;
+            color: #444;
+            display: flex;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #FF6F61;
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .input-group input:focus {
+            border-color: #FF6F61;
+            box-shadow: 0 0 10px rgba(255, 138, 128, 0.5);
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #777;
+            text-align: center;
+        } 
+        footer a {
+            color: blue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="converter-container">
+        <h1>Currency Converter</h1>
+        <div class="input-group">
+            <label for="usd">Us Dollars (USA)</label>
+            <input type="number" id="usd" placeholder="USD">
+        </div>
+        <div class="input-group">
+            <label for="pkr">Pakistani Rupees (PKR)</label>
+            <input type="number" id="pkr" placeholder="PKR">
+        </div>
+        <div class="input-group">
+            <label for="inr">Indian Rupees (INR)</label>
+            <input type="number" id="inr" placeholder="INR">
+        </div>
+        <div class="input-group">
+            <label for="aud">Australian  Dollars (AUD)</label>
+            <input type="number" id="aud" placeholder="aud">
+        </div>
+        <div class="input-group">
+            <label for="eur">Euros (EUR)</label>
+            <input type="number" id="eur" placeholder="eur">
+        </div>
+        <footer>
+            Rates are approximate. <a href="#"> learn more</a>
+        </footer>
+    </div>
+    
+    <script>
+        const conversionRates = {
+            usd: 1,
+            pkr: 258,
+            inr: 83,
+            aud: 1.55,
+            eur: 0.92
+        };
+        const inputs = {
+            usd: document.getElementById('usd'),
+            pkr: document.getElementById('pkr'),
+            inr: document.getElementById('inr'),
+            aud: document.getElementById('aud'),
+            eur: document.getElementById('eur'),
+        };
+
+        function convertCurrency(event) {
+            const inputCurrency = event.target.id;
+            const inputValue = parseFloat(event.target.value) || 0;
+
+            const valueInUSD = inputValue / conversionRates[inputCurrency];
+
+            for (const currency in inputs) {
+                if(currency !== inputCurrency) {
+                    const convertedValue = (valueInUSD * conversionRates[currency]).toFixed(2);
+                    inputs[currency].value = convertedValue;
+                }
+            }
+        }
+
+        for (const currency in inputs) {
+            inputs[currency].addEventListener('input', convertCurrency);
+        }
+
+
+
+    </script>
+</body>
+</html>
