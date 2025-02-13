@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #7d15b5;
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #10a5dbf4;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .hidden {
+            background-color: #713f26;
+            color: #ccc;
+        }
+        #timer {
+            font-size: 20px;
+            margin-top: 20px;
+            color: white;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body>
+    <h1>Memory Game</h1>
+    <div class="game-container" id="gameBoard"></div>
+    <div id="timer">Time: 0m 0s</div>
+    <script>
+        const icons = ['🍎', '🍌', '🍒', '🍇', '🍉', '🍓', '🥝', '🍍'];
+        let cards = [...icons, ...icons];
+        let flippedCards = [];
+        let matchedCards = [];
+        let startTime;
+        let timerInterval;
+        let timerStarted = false; // To track if the timer has started
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function createBoard() {
+            const gameBoard = document.getElementById("gameBoard");
+            gameBoard.innerHTML = "";
+            cards = shuffle(cards);
+            cards.forEach((icon, index) => {
+                const card = document.createElement("div");
+                card.classList.add("card", "hidden");
+                card.dataset.icon = icon;
+                card.dataset.index = index;
+                card.addEventListener("click", flipCard);
+                gameBoard.appendChild(card);
+            });
+        }
+
+        function flipCard() {
+            // Start the timer when the first card is clicked
+            if (!timerStarted) {
+                startTime = Date.now(); // Start timer
+                timerInterval = setInterval(updateTimer, 1000); // Update timer every second
+                timerStarted = true;
+            }
+
+            if (flippedCards.length < 2 && !this.classList.contains("matched")) {
+                this.classList.remove("hidden");
+                this.innerText = this.dataset.icon;
+                flippedCards.push(this);
+            }
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.icon === card2.dataset.icon) {
+                card1.classList.add("matched");
+                card2.classList.add("matched");
+                matchedCards.push(card1, card2);
+            } else {
+                card1.classList.add("hidden");
+                card2.classList.add("hidden");
+                card1.innerText = "";
+                card2.innerText = "";
+            }
+            flippedCards = [];
+
+            if (matchedCards.length === cards.length) {
+                clearInterval(timerInterval); // Stop timer
+                setTimeout(() => {
+                    const elapsedTime = Date.now() - startTime;
+                    const minutes = Math.floor(elapsedTime / 60000);
+                    const seconds = Math.floor((elapsedTime % 60000) / 1000);
+                    alert(`You won! Time: ${minutes}m ${seconds}s `);
+                }, 500);
+            }
+        }
+
+        function updateTimer() {
+            const elapsedTime = Date.now() - startTime;
+            const minutes = Math.floor(elapsedTime / 60000);
+            const seconds = Math.floor((elapsedTime % 60000) / 1000);
+            document.getElementById("timer").innerText = `Time: ${minutes}m ${seconds}s`;
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>

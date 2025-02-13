@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f2f4f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin: 100px 0;
+      
+      text-align: center;
+      color: #2C3E50;
+    }
+
+    /* Navbar Styles */
+    nav {
+      width: 100%;
+      background: linear-gradient(135deg, #3498db, #2ecc71);
+      padding: 20px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      border-bottom: 4px solid #2980b9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+    }
+
+    nav li {
+      margin: 0 30px;
+      transition: transform 0.3s ease;
+    }
+
+    nav li:hover {
+      transform: scale(1.1);
+    }
+
+    /* Dark Mode Toggle */
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .dark-mode-switch {
+      position: relative;
+      width: 50px;
+      height: 30px;
+      background-color: #BDC3C7;
+      border-radius: 50px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .dark-mode-switch::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 22px;
+      height: 22px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .dark-mode-switch.active::before {
+      transform: translateX(20px);
+      background-color: #2ecc71;
+    }
+
+    /* Projects Section */
+    .projects {
+      width: 90%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-top: 100px; /* Avoid navbar overlap */
+    }
+
+    .project {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      text-align: start;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project h2 {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #3498db;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    .project h2:hover {
+      color: #132cba;
+    }
+
+    .project p {
+      font-size: 1.3rem;
+      color: #7f8c8d;
+      margin-top: 15px;
+      line-height: 1.7;
+    }
+
+    .project:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .project a {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #3498db;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .project a:hover {
+      color: #2980b9;
+    }
+
+    /* Footer Styles */
+    footer {
+      width: 100%;
+      background-color: #34495e;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      margin-top: 40px;
+      border-top: 4px solid #2c3e50;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 20px;
+      font-size: 1.4rem;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #3498db;
+    }
+
+    footer p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      .project h2 {
+        font-size: 1.8rem;
+      }
+      .project p {
+        font-size: 1.1rem;
+      }
+      nav ul {
+        flex-direction: column;
+      }
+      nav li {
+        margin: 10px 0;
+      }
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #2c3e50;
+      color: white;
+    }
+
+    body.dark-mode nav {
+      background: linear-gradient(135deg, #2980b9, #1abc9c);
+      border-bottom: 4px solid #16a085;
+    }
+
+    body.dark-mode .project {
+      background-color: #34495e;
+      color: white;
+    }
+
+    body.dark-mode .project h2 {
+      color: #3498db;
+    }
+
+    body.dark-mode footer {
+      background-color: #2c3e50;
+    }
+
+    body.dark-mode footer a {
+      color: #3498db;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#">Web Development Projects</a>
+    <div class="dark-mode-toggle">
+      
+      <div class="dark-mode-switch" id="darkModeSwitch"></div>
+    </div>
+  </nav>
+
+  
+  <div class="projects">
+    <!-- Replace # with your actual project URLs -->
+    <div class="project">
+      <h2><a href="Age-Calculator.html">Age Calculator Using HTML, CSS, and JavaScript</a></h2>
+  <p>This Age Calculator is a simple web application built using HTML, CSS, and JavaScript. It allows users to calculate their age by entering their date of birth. The tool accurately calculates the user's age in years, months, and days.</p>    </div>
+    <div class="project">
+      <h2><a href="analog-clock.html">Analog Clock Using HTML, CSS, and JavaScript </a></h2>
+<p>This Analog Clock is a visually appealing web application created using HTML, CSS, and JavaScript. It displays the current time with moving hour, minute, and second hands, just like a traditional analog clock.</p>    </div>
+    <div class="project">
+      <h2><a href="Binary-Decimal.html">Decimal to Binary Converter Using HTML, CSS, and JavaScript
+
+      </a></h2>
+<p>This Decimal to Binary Converter is a web application designed to convert decimal numbers into binary format. It provides a simple and efficient way for users to understand binary representation of decimal numbers.</p>    </div>
+    <div class="project">
+      <h2><a href="Box-color-change.html">Box Color Changer Using HTML, CSS, and JavaScript
+
+      </a></h2>
+<p>This Box Color Changer is a fun and interactive web application that allows users to change the background color of a box with a single click. It adds a playful element to a webpage and showcases how JavaScript can be used to manipulate CSS styles dynamically.</p>    </div> <div class="project">
+      <h2><a href="color-picker.html">Color Picker Using HTML, CSS, and JavaScript
+
+      </a></h2>
+<p>Color Picker Using HTML, CSS, and JavaScript
+
+</p>    </div> <div class="project">
+      <h2><a href="countdown.html">Countdown Timer Using HTML, CSS, and JavaScript
+
+      </a></h2>
+<p>This Countdown Timer is a simple yet effective web application that counts down to a specific date and time. It is perfect for events, product launches, or any occasion where you need a countdown.</p>    </div> <div class="project">
+      <h2><a href="currency converter.html">Currency Converter Using HTML, CSS, and JavaScript</a></h2>
+<p>This Currency Converter is a practical web application that allows users to convert one currency to another based on the latest exchange rates. It is useful for travelers, online shoppers, and anyone who needs to perform currency conversions regularly.</p>    </div> <div class="project">
+      <h2><a href="Dark-mode.html">Dark Mode Toggle Using HTML, CSS, and JavaScript
+
+      </a></h2>
+<p>This Dark Mode Toggle is a simple web application that allows users to switch between light and dark modes on a website. Dark mode is a popular feature that provides a darker color scheme for users who prefer it, reducing eye strain and conserving battery life on devices with OLED screens.</p>    </div> <div class="project">
+      <h2><a href="Digital-clock.html">Digital Clock Using HTML, CSS, and JavaScript
+
+      </a></h2>
+<p>This Digital Clock is a simple yet functional web application that displays the current time in a digital format. The clock updates in real-time to show the hours, minutes, and seconds, providing an accurate display of the current time.</p>    </div> <div class="project">
+      <h2><a href="Drum-kit.html">Drum Kit Using HTML, CSS, and JavaScript</a></h2>
+<p>This Drum Kit is a fun web application that lets users play different drum sounds by pressing keys on the keyboard or clicking on drum buttons. It simulates the experience of playing a real drum kit with sounds for each drum or cymbal.</p>    </div> <div class="project">
+      <h2><a href="kilometer to miles.html">Kilometers to Miles Converter Using HTML, CSS, and JavaScript</a></h2>
+<p>This Kilometers to Miles Converter is a simple web application that allows users to convert a distance in kilometers to miles. This tool is useful for anyone needing to quickly switch between metric and imperial units.</p>    </div> <div class="project">
+      <h2><a href="login-form.html">Login Form Using HTML, CSS, and JavaScript</a></h2>
+<p>This Login Form is a simple yet effective web application that allows users to enter their credentials (username and password) and submit them for validation. It's a great starting point for adding authentication functionality to a website.</p>    </div> <div class="project">
+  <h2><a href="Memory-game.html">Memory Game Using HTML, CSS, and JavaScript</a></h2>
+  <p>The Memory Game (also known as Concentration) is a fun and engaging card-matching game where the goal is to match pairs of cards that are flipped over. This is a great exercise in practicing JavaScript logic and DOM manipulation.</p>    </div>
+  <div class="project">
+    <h2><a href="Mouse-animaction.html">Mouse Animation Using HTML, CSS, and JavaScript</a></h2>
+<p>Mouse animations can add an interactive and engaging effect to your website, making it more visually appealing. One popular animation effect is to create a custom cursor that reacts to the mouse movement or creates an animation when the mouse moves over an element.</p>    </div>
+<div class="project">
+  <h2><a href="Password-generator.html">Password Generator Using HTML, CSS, and JavaScript</a></h2>
+<p>A password generator allows users to create strong, secure passwords with various criteria like length, uppercase/lowercase letters, numbers, and special characters. It's a handy tool to ensure secure online accounts.</p>    </div>
+<div class="project">
+  <h2><a href="Random-jokes.html">Random Jokes Generator Using HTML, CSS, and JavaScript
+
+  </a></h2>
+<p>A random joke generator allows users to click a button to get a new, random joke each time. You can use an API to fetch jokes, or you can have a predefined list of jokes stored in an array that is randomly selected.</p>    </div>
+<div class="project">
+  <h2><a href="Stopwatch.html">Stopwatch Using HTML, CSS, and JavaScript
+
+  </a></h2>
+<p>A stopwatch is a device used to measure time intervals, usually for activities or events. This project will allow users to start, stop, and reset a timer.</p>    </div>
+<div class="project">
+  <h2><a href="Temperature.html">Temperature Converter Using HTML, CSS, and JavaScript
+
+
+
+  </a></h2>
+<p>A temperature converter allows users to convert temperatures between different units such as Celsius, Fahrenheit, and Kelvin.</p>    </div>
+<div class="project">
+  <h2><a href="typing-speed.html">Typing Speed Test Using HTML, CSS, and JavaScript
+
+
+
+  </a></h2>
+<p>A typing speed test allows users to test how fast they can type a given passage of text. The test typically displays a random sentence, and the user has to type it as fast and accurately as possible. After the test, the speed is calculated in words per minute (WPM), and the accuracy is displayed</p>    </div>
+<div class="project">
+  <h2><a href="Weight-converter.html">Weight Converter Using HTML, CSS, and JavaScript
+
+
+
+  </a></h2>
+<p>A weight converter allows users to convert weight between different units, such as kilograms, pounds, and ounces.</p>    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer>
+  <div class="social-icons">
+    <a href="busniessauct@gmail.com" class="email"><i class="fas fa-envelope"></i></a>
+    <a href="tel:+923014579561" class="phone"><i class="fas fa-phone-alt"></i></a>
+    <a href="https://www.instagram.com/codinghayat?igsh=MTBtcXA0M2x4dmlzeQ%3D%3D&utm_source=qr " target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/@codinghayat" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+  </div>
+  <p>&copy; 2024 Ali hayat. All Rights Reserved.</p>
+</footer>
+
+
+
+  <script>
+    // Toggle Dark/Light Mode
+    const darkModeSwitch = document.getElementById('darkModeSwitch');
+    darkModeSwitch.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      darkModeSwitch.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff758c, #fad0c4);
+        }
+        .container {
+            background: rgb(213, 215, 215);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        h2{
+            color: #333;
+            margin-top: 20px;
+        }
+        input, select {
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border-color:   #ff758c;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>weight converter</h2>
+        <input type="number" id="weightInput" placeholder="Enter Weight " oninput="convertWeight()">
+        <select id="unitSelect" onchange="convertWeight()">
+            <option value="kg">Kilograms (kg)</option>
+            <option value="g">Grams (g)</option>
+            <option value="lb">Pounds (lb)</option>
+            <option value="oz">Ownces(oz)</option>
+        </select>
+        <div class="result" id="output"></div>
+    </div>
+    
+
+
+    <script>
+      
+      function convertWeight() {
+        let weight = parseFloat(document.getElementById('weightInput').value);
+        let unit = document.getElementById('unitSelect').value;
+        let output = document.getElementById('output');
+
+        if (isNaN(weight)) {
+            output.innerHTML = "please enter a valid number";
+            return;
+        }
+
+        let conversions = {
+            'kg' : {'g': 1000, 'lb' : 2.20462, 'oz' : 35.274 },
+            'g' : {'kg': 0.001, 'lb' : 0.00220464, 'oz' : 0.035274 },
+            'lb' : {'kg': 0.453592, 'g' : 453.592, 'oz' : 16 },
+            'oz' : {'kg': 0.0283495, 'g' : 28.3495, 'lb' : 0.0625 }
+        };
+        let resultText = "";
+        for (let targerUnit in conversions[unit]) {
+            let convertedValue = (weight * conversions[unit][targerUnit]).toFixed(2);
+            resultText += `${convertedValue} ${targerUnit} <br>`;
+
+        }
+        output.innerHTML = resultText;
+      }
+
+
+
+
+    </script>
+</body>
+</html>
